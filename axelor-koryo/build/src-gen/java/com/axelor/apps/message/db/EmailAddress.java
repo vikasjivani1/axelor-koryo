@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.axelor.apps.base.db.Partner;
+import com.axelor.apps.crm.db.Lead;
 import com.axelor.auth.db.AuditableModel;
 import com.axelor.db.annotations.NameColumn;
 import com.axelor.db.annotations.VirtualColumn;
@@ -67,6 +68,10 @@ public class EmailAddress extends AuditableModel {
 	@Access(AccessType.PROPERTY)
 	@NotNull
 	private String name;
+
+	@Widget(title = "Lead")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "emailAddress", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Lead lead;
 
 	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
@@ -125,6 +130,14 @@ public class EmailAddress extends AuditableModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Lead getLead() {
+		return lead;
+	}
+
+	public void setLead(Lead lead) {
+		this.lead = lead;
 	}
 
 	public String getAttrs() {

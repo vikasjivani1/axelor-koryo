@@ -40,6 +40,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import com.axelor.apps.base.db.Company;
+import com.axelor.apps.crm.db.Event;
 import com.axelor.auth.db.AuditableModel;
 import com.axelor.auth.db.User;
 import com.axelor.db.annotations.NameColumn;
@@ -47,7 +48,7 @@ import com.axelor.db.annotations.Widget;
 import com.google.common.base.MoreObjects;
 
 @Entity
-@Table(name = "MESSAGE_MESSAGE", indexes = { @Index(columnList = "subject"), @Index(columnList = "from_email_address"), @Index(columnList = "mail_account"), @Index(columnList = "sender_user"), @Index(columnList = "recipient_user"), @Index(columnList = "template"), @Index(columnList = "company") })
+@Table(name = "MESSAGE_MESSAGE", indexes = { @Index(columnList = "subject"), @Index(columnList = "from_email_address"), @Index(columnList = "mail_account"), @Index(columnList = "sender_user"), @Index(columnList = "recipient_user"), @Index(columnList = "template"), @Index(columnList = "company"), @Index(columnList = "event") })
 public class Message extends AuditableModel {
 
 	@Id
@@ -138,6 +139,10 @@ public class Message extends AuditableModel {
 	@Widget(title = "Company")
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Company company;
+
+	@Widget(title = "Event")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Event event;
 
 	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
@@ -499,6 +504,14 @@ public class Message extends AuditableModel {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public String getAttrs() {

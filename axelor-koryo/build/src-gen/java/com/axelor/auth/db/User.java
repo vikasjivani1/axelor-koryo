@@ -77,7 +77,7 @@ import com.google.common.base.MoreObjects;
 @Entity
 @Cacheable
 @Table(name = "AUTH_USER", indexes = { @Index(columnList = "name"), @Index(columnList = "group_id"), @Index(columnList = "active_company"), @Index(columnList = "partner"), @Index(columnList = "active_team"), @Index(columnList = "fullName"), @Index(columnList = "i_calendar"), @Index(columnList = "electronic_signature"), @Index(columnList = "group_id") })
-@Track(fields = { @TrackField(name = "name"), @TrackField(name = "code"), @TrackField(name = "email"), @TrackField(name = "theme"), @TrackField(name = "activateOn"), @TrackField(name = "expiresOn"), @TrackField(name = "activeCompany"), @TrackField(name = "partner"), @TrackField(name = "today"), @TrackField(name = "activeTeam"), @TrackField(name = "fullName"), @TrackField(name = "iCalendar"), @TrackField(name = "electronicSignature"), @TrackField(name = "useSignatureForQuotations"), @TrackField(name = "group"), @TrackField(name = "language"), @TrackField(name = "singleTab"), @TrackField(name = "noHelp"), @TrackField(name = "blocked"), @TrackField(name = "sendEmailUponPasswordChange"), @TrackField(name = "homeAction"), @TrackField(name = "receiveEmails") })
+@Track(fields = { @TrackField(name = "name"), @TrackField(name = "code"), @TrackField(name = "email"), @TrackField(name = "theme"), @TrackField(name = "activateOn"), @TrackField(name = "expiresOn"), @TrackField(name = "activeCompany"), @TrackField(name = "partner"), @TrackField(name = "today"), @TrackField(name = "activeTeam"), @TrackField(name = "fullName"), @TrackField(name = "iCalendar"), @TrackField(name = "electronicSignature"), @TrackField(name = "useSignatureForQuotations"), @TrackField(name = "group"), @TrackField(name = "language"), @TrackField(name = "singleTab"), @TrackField(name = "noHelp"), @TrackField(name = "blocked"), @TrackField(name = "sendEmailUponPasswordChange"), @TrackField(name = "homeAction"), @TrackField(name = "receiveEmails"), @TrackField(name = "useSignatureForStock") })
 public class User extends AuditableModel {
 
 	@Id
@@ -221,6 +221,9 @@ public class User extends AuditableModel {
 	@Basic(fetch = FetchType.LAZY)
 	@Type(type = "json")
 	private String attrs;
+
+	@Widget(title = "Use signature for certificate of conformity")
+	private Boolean useSignatureForStock = Boolean.FALSE;
 
 	public User() {
 	}
@@ -939,6 +942,14 @@ public class User extends AuditableModel {
 
 	public void setAttrs(String attrs) {
 		this.attrs = attrs;
+	}
+
+	public Boolean getUseSignatureForStock() {
+		return useSignatureForStock == null ? Boolean.FALSE : useSignatureForStock;
+	}
+
+	public void setUseSignatureForStock(Boolean useSignatureForStock) {
+		this.useSignatureForStock = useSignatureForStock;
 	}
 
 	@Override

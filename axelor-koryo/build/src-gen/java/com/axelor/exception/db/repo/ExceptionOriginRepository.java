@@ -29,5 +29,7 @@ public class ExceptionOriginRepository extends JpaRepository<ExceptionOrigin> {
 	/**Origin select*/
 
 	public static final String IMPORT = "import";
+
+	public static final String CRM = "crm";
 }
 
